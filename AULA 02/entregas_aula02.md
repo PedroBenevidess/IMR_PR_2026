@@ -1,56 +1,45 @@
-# Entregas --- Aula 02
+# Entregas — Aula 02 - Pedro e Rodrigo
 
 ## 1. Estado do Robô e POSE 2D
 
-O estado do robô pode ser representado por **(x, y, θ)**:
+O estado de um robô pode ser representado por **(x, y, θ)**. Nesse caso, **x e y** representam a posição do robô no plano, enquanto **θ** indica a sua orientação.
 
--   **x, y**: posição do robô no plano.
--   **θ**: orientação do robô.
-
-A **POSE 2D** informa, portanto, onde o robô está e para qual direção
-está apontando.
+Ou seja, a POSE 2D mostra basicamente **onde o robô está e para qual direção ele está apontando**.
 
 ## 2. Cinemática Diferencial
 
-Em um robô com duas rodas, o movimento depende das velocidades da roda
-esquerda e direita.
+Em um robô com duas rodas, o movimento acontece de acordo com a velocidade de cada roda.
 
--   Mesma velocidade nas duas rodas → movimento em linha reta.
--   Velocidades diferentes → robô faz uma curva.
--   Rodas em sentidos opostos → robô gira no próprio eixo.
+Quando as duas rodas possuem a mesma velocidade, o robô segue em linha reta. Se uma roda estiver mais rápida que a outra, ele faz uma curva. Já quando as rodas giram em sentidos opostos, o robô consegue girar no próprio eixo.
 
-As velocidades das rodas são convertidas em velocidade linear **v** e
-velocidade angular **ω**.
+Essas velocidades são utilizadas para calcular a velocidade linear **v** e a velocidade angular **ω**.
 
 ## 3. Odometria Discreta
 
-A odometria estima a nova pose do robô usando o movimento ocorrido
-durante um pequeno intervalo de tempo **dt**.
+A odometria serve para estimar a nova posição do robô após um pequeno intervalo de tempo, chamado de **dt**.
 
-A atualização é feita passo a passo:
+A atualização da posição acontece utilizando as seguintes equações:
 
--   **θ = θ + ω · dt**
--   **x = x + v · cos(θ) · dt**
--   **y = y + v · sin(θ) · dt**
+* **θ = θ + ω · dt**
+* **x = x + v · cos(θ) · dt**
+* **y = y + v · sin(θ) · dt**
 
-Como o cálculo é repetido várias vezes, pequenos erros podem se
-acumular.
+Como esse processo é realizado várias vezes durante o movimento, pequenos erros podem acabar se acumulando ao longo do percurso.
 
-## 4. Navegação "GO-TO-GOAL"
+## 4. Navegação GO-TO-GOAL
 
-O objetivo é orientar o robô para um ponto alvo.
+O objetivo dessa navegação é fazer com que o robô se desloque até um ponto determinado.
 
-Primeiro, calcula-se a direção desejada:
+Primeiro, calculamos a direção que o robô precisa seguir:
 
 **θ_desejado = atan2(y_alvo - y, x_alvo - x)**
 
-Depois, calcula-se o erro:
+Depois, calculamos a diferença entre a direção atual do robô e a direção desejada:
 
 **erro_θ = θ_desejado - θ**
 
-Um controlador proporcional pode gerar a velocidade angular:
+A partir desse erro, podemos calcular a velocidade angular usando um controlador proporcional:
 
 **ω = Kp · erro_θ**
 
-Assim, quanto maior o erro, maior é a correção do robô. Quando o erro se
-aproxima de zero, o robô fica apontado para o alvo.
+Dessa forma, quanto maior for o erro, maior será a correção feita pelo robô. Conforme ele vai se aproximando da direção correta, o erro diminui e o robô fica apontado para o alvo.
