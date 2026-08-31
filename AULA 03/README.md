@@ -30,7 +30,7 @@ numérico de cada sensor (Esq / Frente / Dir) atualizando a cada frame.
 Print da tela (comportamento observado) descrito no
 `resultados_aula03.md` da pasta principal.
 
-## O que eu entendi
+## Conclusão
 
 O ponto central aqui é que o sensor não "sabe" onde está o obstáculo
 de forma mágica — ele descobre isso testando ponto por ponto ao longo
