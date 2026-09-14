@@ -1,10 +1,3 @@
-"""
-Exercicio 4 - Braitenberg com conexoes diretas (nao-cruzadas)
-Sensor esquerdo -> roda esquerda, sensor direito -> roda direita.
-vL = v0 + alpha*(1 - d_esq/d_max)
-vR = v0 + alpha*(1 - d_dir/d_max)
-"""
-
 import math
 import sys
 import pygame
@@ -63,17 +56,17 @@ def main():
                 x, y, theta = POSICAO_INICIAL
                 trilha = []
 
-        # -------- Sensores --------
+        
         ang_esq = theta + ANG_SENSOR
         ang_dir = theta - ANG_SENSOR
         d_esq = raio_intersecta_circulo((x, y), ang_esq, OBSTACULO_POS, OBSTACULO_RAIO, D_MAX)
         d_dir = raio_intersecta_circulo((x, y), ang_dir, OBSTACULO_POS, OBSTACULO_RAIO, D_MAX)
 
-        # -------- Conexao direta (Braitenberg) --------
+        
         vL = V0 + ALPHA * (1.0 - d_esq / D_MAX)
         vR = V0 + ALPHA * (1.0 - d_dir / D_MAX)
 
-        # -------- Cinematica diferencial --------
+        
         v = (vL + vR) / 2.0
         w = (vR - vL) / L_EIXO
         x += v * math.cos(theta) * DT
@@ -84,7 +77,7 @@ def main():
         if len(trilha) > 3000:
             trilha.pop(0)
 
-        # -------- Desenho --------
+        
         tela.fill((26, 26, 30))
         pygame.draw.circle(tela, (230, 90, 90), OBSTACULO_POS, OBSTACULO_RAIO)
 
