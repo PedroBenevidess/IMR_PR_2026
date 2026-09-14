@@ -1,9 +1,3 @@
-"""
-Exercicio 5 - Centralizacao autonoma em corredor (Controle Proporcional)
-Dois feixes laterais fixos (+-90 graus) medem a distancia ate as paredes.
-erro e = d_esq - d_dir   ->   omega = Kp * e   (Kp = 0.01), v constante.
-"""
-
 import math
 import random
 import sys
@@ -82,13 +76,12 @@ def main():
                 if evento.key == pygame.K_RIGHT:
                     theta += math.radians(15)
 
-        # -------- Sensores laterais fixos (+-90 graus) --------
+        
         ang_esq = theta + math.pi / 2
         ang_dir = theta - math.pi / 2
         d_esq = distancia_parede((x, y), ang_esq)
         d_dir = distancia_parede((x, y), ang_dir)
 
-        # -------- Controle proporcional --------
         erro = d_esq - d_dir
         w = KP * erro
 
@@ -100,13 +93,11 @@ def main():
         if len(trilha) > 4000:
             trilha.pop(0)
 
-        # -------- Camera acompanha o robo no eixo X --------
         cam_x = x - LARGURA * 0.3
 
         def tela_xy(px, py):
             return px - cam_x, py
 
-        # -------- Desenho --------
         tela.fill((22, 22, 26))
         for (p1, p2) in PAREDES:
             pygame.draw.line(tela, (140, 140, 150), tela_xy(*p1), tela_xy(*p2), 4)
