@@ -1,10 +1,3 @@
-"""
-Exercicio 2 - Calculadora de giro Ackermann vs. Diferencial
-O usuario controla v (velocidade linear) e phi (angulo de esterco) via
-teclado e observa a trajetoria de um veiculo com tracao Ackermann,
-comparando-a com as capacidades de um robo diferencial.
-"""
-
 import math
 import sys
 import pygame
@@ -65,7 +58,7 @@ def main():
             elif phi < 0:
                 phi = min(0.0, phi + PHI_VEL * DT)
 
-        # ---- Cinematica Ackermann (modelo bicicleta) ----
+        
         w = (v / L) * math.tan(phi)
         x += v * math.cos(theta) * DT
         y += v * math.sin(theta) * DT
@@ -77,7 +70,7 @@ def main():
 
         raio = L / math.tan(phi) if abs(phi) > 1e-4 else None
 
-        # -------------------- Desenho --------------------
+        
         tela.fill((28, 28, 34))
 
         if len(trilha) > 1:
@@ -89,12 +82,12 @@ def main():
         pygame.draw.circle(tela, (240, 240, 240), (px, py), 10)
         pygame.draw.line(tela, (255, 90, 90), (px, py), frente, 3)
 
-        # roda dianteira indicando o angulo de esterco phi
+        
         ang_roda = theta + phi
         ponta_roda = (frente[0] + 14 * math.cos(ang_roda), frente[1] - 14 * math.sin(ang_roda))
         pygame.draw.line(tela, (255, 220, 90), frente, ponta_roda, 4)
 
-        # centro da curva, quando o raio e pequeno o bastante para caber na tela
+        
         if raio is not None and abs(raio) < 60:
             cx = x - raio * math.sin(theta)
             cy = y + raio * math.cos(theta)
