@@ -1,10 +1,3 @@
-"""
-Exercicio 3 - Varredura Sensorial com Filtro de Alcance e Ruido
-7 feixes cobrindo 180 graus de campo de visao, com ruido gaussiano e um
-filtro de limiar (threshold) que descarta leituras muito proximas e
-satura leituras muito distantes.
-"""
-
 import math
 import sys
 import pygame
@@ -107,7 +100,7 @@ def main():
         if teclas[pygame.K_RIGHT]:
             theta += VEL_ANGULAR * DT
 
-        # -------- Varredura --------
+        
         leituras = []
         for ang_rel in angulos_relativos:
             ang_abs = theta + ang_rel
@@ -116,7 +109,6 @@ def main():
             valido, d_filtrado = aplica_filtro(d_ruido)
             leituras.append((ang_rel, d_ruido, valido, d_filtrado))
 
-        # -------- Desenho --------
         tela.fill((24, 24, 28))
         for seg in segmentos:
             pygame.draw.line(tela, (150, 150, 160), seg[0], seg[1], 3)
@@ -140,7 +132,7 @@ def main():
         frente = (x + 18 * math.cos(theta), y + 18 * math.sin(theta))
         pygame.draw.line(tela, (255, 90, 90), (x, y), frente, 3)
 
-        # painel lateral com bruto x filtrado
+        
         painel_x = LARGURA - 300
         pygame.draw.rect(tela, (18, 18, 22), (painel_x, 0, 300, ALTURA))
         titulo = fonte_titulo.render("Bruto (ruido) x Filtrado", True, (255, 255, 255))
