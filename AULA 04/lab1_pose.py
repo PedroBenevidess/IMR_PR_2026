@@ -1,23 +1,16 @@
-"""
-Exercicio 1 - Validador de Pose em malha aberta (Cinematica Diferencial)
-Calcula e simula a Pose (x, y, theta) de um robo diferencial apos uma
-sequencia de comandos de velocidade (v, w) aplicados em malha aberta.
-"""
+
 
 import math
 import sys
 import pygame
 
-# ---------------------------------------------------------------
-# Parametros da simulacao
-# ---------------------------------------------------------------
 LARGURA, ALTURA = 900, 500
 FPS = 60
 DT = 1.0 / FPS
 ESCALA = 60          # pixels por metro
 ORIGEM = (100, ALTURA // 2)
 
-# Sequencia de comandos: (v [m/s], w [rad/s], duracao [s])
+
 SEQUENCIA = [
     (0.5, 0.0, 4.0),
     (0.0, math.pi / 4, 2.0),   # 0.7854 rad/s
@@ -26,14 +19,14 @@ SEQUENCIA = [
 
 
 def pose_para_pixel(x, y):
-    """Converte (x, y) em metros para coordenadas de tela em pixels."""
+    
     px = ORIGEM[0] + x * ESCALA
     py = ORIGEM[1] - y * ESCALA
     return px, py
 
 
 def integra_exato(x, y, theta, v, w, dt):
-    """Integracao exata do modelo unicycle para v, w constantes em dt."""
+    
     if abs(w) < 1e-9:
         x += v * dt * math.cos(theta)
         y += v * dt * math.sin(theta)
@@ -45,7 +38,7 @@ def integra_exato(x, y, theta, v, w, dt):
 
 
 def calcula_pose_teorica():
-    """Aplica a sequencia inteira em um passo fechado por trecho."""
+    
     x, y, theta = 0.0, 0.0, 0.0
     for v, w, t in SEQUENCIA:
         x, y, theta = integra_exato(x, y, theta, v, w, t)
@@ -59,10 +52,10 @@ def main():
     relogio = pygame.time.Clock()
     fonte = pygame.font.SysFont("consolas", 18)
 
-    # Pose teorica (formula fechada, calculada de uma unica vez)
+    
     x_teo, y_teo, th_teo = calcula_pose_teorica()
 
-    # Pose simulada (integrada passo a passo, dt pequeno, junto do Pygame)
+    
     x, y, theta = 0.0, 0.0, 0.0
     trilha = [pose_para_pixel(x, y)]
 
@@ -100,7 +93,7 @@ def main():
             print("=" * 55)
             impresso = True
 
-        # -------- Desenho --------
+        
         tela.fill((30, 30, 35))
 
         if len(trilha) > 1:
